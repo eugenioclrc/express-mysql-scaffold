@@ -1,0 +1,34 @@
+<h1 class="page-header">{{vm.params.name}}, {{vm.totalResults}} records</h1>
+<h3 ng-if="vm.totalPages > 0">
+  Page {{vm._page + 1}} of {{vm.totalPages}}
+</h3>
+<table class="table table-striped" ng-if="vm.totalResults > 0">
+  <thead>
+    <tr>
+      <th ng-repeat="field in vm.model.fields">{{vm.field.Field}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="row in vm.rows">
+      <td ng-repeat="d in row track by $index" ng-bind="::d"></td>
+    </tr>
+  </tbody>
+</table>
+<nav ng-if="vm.totalPages > 1">
+  <ul class="pagination">
+    <li ng-class="{'disabled': vm._page === 0}">
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li ng-repeat="p in vm.pages" ng-class="{'active': p === vm._page}"
+    ui-sref="modelIndex({name:vm.model.name, page: p})">
+      <a href="#" ng-bind="p + 1"></a>
+    </li>
+    <li>
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
